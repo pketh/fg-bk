@@ -1,11 +1,16 @@
-$(window).ready -> getWindowSize()
-$(window).on 'resize', getWindowSize()
 width = null
 height = null
 
 getWindowSize = ->
   width = $(window).width()
   height = $(window).height()
+  return
+
+$(window).ready ->
+  getWindowSize()
+  return
+
+$(window).on 'resize', getWindowSize
 
 TAU = 2 * Math.PI
 
