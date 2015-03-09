@@ -1,5 +1,5 @@
 $(window).ready -> getWindowSize()
-$(window).on('resize') -> getWindowSize()
+$(window).on 'resize', getWindowSize()
 width = null
 height = null
 
