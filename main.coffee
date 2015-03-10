@@ -1,16 +1,14 @@
 width = null
 height = null
 
-getWindowSize = ->
+updateWindowSize = ->
   width = $(window).width()
   height = $(window).height()
   return
 
-$(window).ready ->
-  getWindowSize()
-  return
+updateWindowSize()
 
-$(window).on 'resize', getWindowSize
+$(window).on 'resize', updateWindowSize
 
 TAU = 2 * Math.PI
 
@@ -22,9 +20,11 @@ style.innerHTML = require "./style"
 
 document.head.appendChild style # inserts into the dom
 
-paper = new Raphael(document.body, "100%", "100%")
+paper = new Raphael(document.body, "100%", "100%") # insert into an id, update windowsize to elementsize
 
 lineColor = 'rgba(128, 128, 226, 0.5)'
+circleColor = 'rgba(255, 0, 0, 0.75)'
+ballColor = 'rgba(0, 255, 255, 0.75)'
 
 drawPerspective = ->
   lines = 25
@@ -33,9 +33,9 @@ drawPerspective = ->
     line = paper.path( ["M", n * m - width, height, "L", width/2, height/2 ] )
 
 initialPoints = [
-  [300, 200]
-  [700, 350]
-  [450, 500]
+  [width * 0.2, height * 0.2]
+  [width * 0.8, height * 0.4]
+  [width * 0.4, height * 0.75]
 ]
 
 movementFns = [
@@ -51,7 +51,7 @@ points = []
 lines = []
 
 updateLines = ->
-  lines = points.map (p, i) ->
+  lines = points.map (p, i) -> # optimize (to gpu?)
     if i is 0
       line(p, points[points.length-1])
     else
@@ -80,7 +80,7 @@ drawCircles = ->
   points.forEach ([x, y]) ->
     paper.circle x, y, 50
     .attr
-      fill: "rgba(255, 0, 0, 0.75)"
+      fill: circleColor
       stroke: "none"
 
 osc = (t, period, phi=0) ->
@@ -131,13 +131,13 @@ drawBall = (ball, i) ->
 
   paper.circle x, y, ball.r
   .attr
-    fill: "rgba(0, 255, 255, 0.75)"
+    fill: ballColor
     stroke: "none"
 
 draw = ->
   paper.clear()
-  drawCircles()
   drawLines()
+  drawCircles()
   drawBalls()
 
 t = 0
