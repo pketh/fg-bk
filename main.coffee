@@ -17,7 +17,6 @@ expr = (rate) ->
 
 style = document.createElement("style")
 style.innerHTML = require "./style"
-
 document.head.appendChild style # inserts into the dom
 
 paper = new Raphael(document.body, "100%", "100%") # insert into an id, update windowsize to elementsize
