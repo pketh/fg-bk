@@ -174,7 +174,7 @@
     },
     "README.md": {
       "path": "README.md",
-      "content": "# FGBK\n\nThe animated background on [fogcreek.com][fb]\n\nBuilt with HyperWeb :milky_way:\n\n[fb]:www.fogcreek.com",
+      "content": "# Fogcreek Background\n\nThe animated background on [fogcreek.com][fb]\n\nBuilt with HyperWeb :milky_way:\n\n[fb]:www.fogcreek.com",
       "mode": "100644",
       "type": "blob"
     },
