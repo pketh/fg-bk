@@ -32,9 +32,9 @@ drawPerspective = ->
     line = paper.path( ["M", n * m - width, height, "L", width/2, height/2 ] )
 
 initialPoints = [
-  [width * 0.2, height * 0.2]
+  [width * 0.2, height * 0.25]
   [width * 0.8, height * 0.4]
-  [width * 0.4, height * 0.75]
+  [width * 0.4, height * 0.8]
 ]
 
 movementFns = [
