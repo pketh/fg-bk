@@ -15,15 +15,15 @@ TAU = 2 * Math.PI
 expr = (rate) ->
   Math.log(1-Math.random())/(-rate)
 
-style = document.createElement("style")
-style.innerHTML = require "./style"
-document.head.appendChild style # inserts into the dom
+style = document.createElement("style") # remove these
+style.innerHTML = require "./style" #
+document.head.appendChild style #
 
-paper = new Raphael(document.body, "100%", "100%") # insert into an id, update windowsize to elementsize
+paper = new Raphael(document.body, "100%", "100%") # insert into "main-background" id
 
-lineColor = 'rgba(128, 128, 226, 0.5)'
-circleColor = 'rgba(255, 0, 0, 0.75)'
-ballColor = 'rgba(0, 255, 255, 0.75)'
+lineColor = 'rgba(219,219,219,1)'
+circleColor = 'rgba(118,154,255,0.9)'
+ballColor = 'rgba(89,255,218,0.75)'
 
 drawPerspective = ->
   lines = 25
