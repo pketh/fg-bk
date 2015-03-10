@@ -1,4 +1,4 @@
-# FGBK
+# Fogcreek Background
 
 The animated background on [fogcreek.com][fb]
 
