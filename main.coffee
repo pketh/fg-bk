@@ -1,6 +1,18 @@
 width = null
 height = null
 
+lineColor = 'rgba(219,219,219,1)'
+circleColor = 'rgba(118,154,255,0.9)'
+circleRadius = 40
+ballColor = 'rgba(89,255,218,0.75)'
+ballRadius = null
+
+initialBallPropagationDelay = 10
+addBallPropagationDelay = 500
+
+# multiplier that determines how fast balls propagate and move
+rate = 0.15
+
 updateWindowSize = ->
   width = $(window).width()
   height = $(window).height()
@@ -9,6 +21,12 @@ updateWindowSize = ->
 updateWindowSize()
 
 $(window).on 'resize', updateWindowSize
+
+initialPoints = [
+  [width * 0.2, height * 0.25]
+  [width * 0.8, height * 0.4]
+  [width * 0.4, height * 0.7]
+]
 
 TAU = 2 * Math.PI
 
@@ -21,21 +39,11 @@ document.head.appendChild style #
 
 paper = new Raphael(document.body, "100%", "100%") # insert into "main-background" id
 
-lineColor = 'rgba(219,219,219,1)'
-circleColor = 'rgba(118,154,255,0.9)'
-ballColor = 'rgba(89,255,218,0.75)'
-
 drawPerspective = ->
   lines = 25
   [0...3*lines].forEach (n) ->
     m = width/lines
     line = paper.path( ["M", n * m - width, height, "L", width/2, height/2 ] )
-
-initialPoints = [
-  [width * 0.2, height * 0.25]
-  [width * 0.8, height * 0.4]
-  [width * 0.4, height * 0.8]
-]
 
 movementFns = [
   (t) ->
@@ -77,7 +85,7 @@ drawLines = ->
 
 drawCircles = ->
   points.forEach ([x, y]) ->
-    paper.circle x, y, 50
+    paper.circle x, y, circleRadius
     .attr
       fill: circleColor
       stroke: "none"
@@ -90,15 +98,14 @@ PATH_TIME = 10
 
 [0..2].forEach (i) ->
   track = tracks[i] = []
-  rate = 0.12
 
   addBall = ->
     track.push
       t: 0
       r: Math.random() * 30 + 10
 
-    setTimeout addBall, expr(rate) * 1000
-  setTimeout addBall, expr(rate) * 1000
+    setTimeout addBall, expr(rate) * addBallPropagationDelay
+  setTimeout addBall, expr(rate) * initialBallPropagationDelay
 
 update = (t) ->
   initialPoints.forEach ([x, y], i) ->
