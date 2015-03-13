@@ -3,14 +3,14 @@ style.innerHTML = require "./style" # remove
 document.head.appendChild style # remove
 paper = new Raphael(document.body, "100%", "100%") # insert into "main-background" id
 
-GLOBAL_RATE = 0.12
-
 LINE_COLOR = 'rgba(219,219,219,1)'
-CIRCLE_COLOR = 'rgba(118,154,255,0.9)' #fb color?
+CIRCLE_COLOR = 'rgba(118,154,255,0.9)' #TODO fb color?
 CIRCLE_RADIUS = 40
-BALL_COLOR = 'rgba(89,255,218,0.75)' # kiln color?
+BALL_COLOR = 'rgba(89,255,218,0.75)' # TODO kiln color?
 BALL_RADIUS = null
 
+GLOBAL_RATE = 0.12
+PATH_TIME = 12
 INITIAL_BALL_DELAY = 10
 NEW_BALL_DELAY = 500
 
@@ -92,7 +92,6 @@ osc = (t, period, phi=0) ->
   Math.sin TAU * t / period + phi
 
 tracks = []
-PATH_TIME = 10
 
 [0..2].forEach (i) ->
   track = tracks[i] = []
