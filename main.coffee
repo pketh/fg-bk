@@ -1,17 +1,21 @@
+style = document.createElement("style") # remove
+style.innerHTML = require "./style" # remove
+document.head.appendChild style # remove
+paper = new Raphael(document.body, "100%", "100%") # insert into "main-background" id
+
+GLOBAL_RATE = 0.12
+
+LINE_COLOR = 'rgba(219,219,219,1)'
+CIRCLE_COLOR = 'rgba(118,154,255,0.9)' #fb color?
+CIRCLE_RADIUS = 40
+BALL_COLOR = 'rgba(89,255,218,0.75)' # kiln color?
+BALL_RADIUS = null
+
+INITIAL_BALL_DELAY = 10
+NEW_BALL_DELAY = 500
+
 width = null
 height = null
-
-lineColor = 'rgba(219,219,219,1)'
-circleColor = 'rgba(118,154,255,0.9)'
-circleRadius = 40
-ballColor = 'rgba(89,255,218,0.75)'
-ballRadius = null
-
-initialBallPropagationDelay = 10
-addBallPropagationDelay = 500
-
-# multiplier that determines how fast balls propagate and move
-rate = 0.15
 
 updateWindowSize = ->
   width = $(window).width()
@@ -22,7 +26,7 @@ updateWindowSize()
 
 $(window).on 'resize', updateWindowSize
 
-initialPoints = [
+INITIAL_POINTS = [
   [width * 0.2, height * 0.25]
   [width * 0.8, height * 0.4]
   [width * 0.4, height * 0.7]
@@ -30,14 +34,8 @@ initialPoints = [
 
 TAU = 2 * Math.PI
 
-expr = (rate) ->
-  Math.log(1-Math.random())/(-rate)
-
-style = document.createElement("style") # remove these
-style.innerHTML = require "./style" #
-document.head.appendChild style #
-
-paper = new Raphael(document.body, "100%", "100%") # insert into "main-background" id
+expr = (GLOBAL_RATE) ->
+  Math.log(1-Math.random())/(-GLOBAL_RATE)
 
 drawPerspective = ->
   lines = 25
@@ -81,13 +79,13 @@ drawLines = ->
   lines.forEach ([x1, y1, x2, y2]) ->
     paper.path ["M", x1, y1, "L", x2, y2]
     .attr
-      stroke: lineColor
+      stroke: LINE_COLOR
 
 drawCircles = ->
   points.forEach ([x, y]) ->
-    paper.circle x, y, circleRadius
+    paper.circle x, y, CIRCLE_RADIUS
     .attr
-      fill: circleColor
+      fill: CIRCLE_COLOR
       stroke: "none"
 
 osc = (t, period, phi=0) ->
@@ -104,11 +102,11 @@ PATH_TIME = 10
       t: 0
       r: Math.random() * 30 + 10
 
-    setTimeout addBall, expr(rate) * addBallPropagationDelay
-  setTimeout addBall, expr(rate) * initialBallPropagationDelay
+    setTimeout addBall, expr(GLOBAL_RATE) * NEW_BALL_DELAY
+  setTimeout addBall, expr(GLOBAL_RATE) * INITIAL_BALL_DELAY
 
 update = (t) ->
-  initialPoints.forEach ([x, y], i) ->
+  INITIAL_POINTS.forEach ([x, y], i) ->
     [fx, fy] = movementFns[i](t)
     points[i] = [fx + x, fy + y]
 
@@ -137,7 +135,7 @@ drawBall = (ball, i) ->
 
   paper.circle x, y, ball.r
   .attr
-    fill: ballColor
+    fill: BALL_COLOR
     stroke: "none"
 
 draw = ->
