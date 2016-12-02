@@ -1,6 +1,6 @@
 # Fogcreek.com Background
 
-The animated background on [fogcreek.com][fb]
+The animated background. formerly on [fogcreek.com][fb]
 
 Built with HyperWeb :milky_way:
 
